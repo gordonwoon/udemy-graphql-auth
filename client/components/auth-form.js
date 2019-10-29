@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import query from "../queries/current-user";
 
 class AuthForm extends Component {
   constructor(props) {
@@ -12,8 +11,7 @@ class AuthForm extends Component {
   }
   onSubmit(e) {
     e.preventDefault();
-    this.props.onSubmit({ email: this.state.email, password: this.state.password })
-      .then(res => this.setState({ email: "", password: "" }));
+    this.props.onSubmit({ email: this.state.email, password: this.state.password });
   }
   render() {
     return (
@@ -34,6 +32,9 @@ class AuthForm extends Component {
               onChange={e => this.setState({ password: e.target.value })}
             />
           </div>
+          <ul className="errors">
+            {this.props.errors.map((error, key) => <li key={key}>{error}</li>)}
+          </ul>
           <button className="btn">Submit</button>
         </form>
       </div>
