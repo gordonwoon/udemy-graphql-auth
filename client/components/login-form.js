@@ -12,15 +12,16 @@ class LoginForm extends Component {
       errors: []
     };
   }
+  componentDidUpdate(prevProps) {
+    if (!prevProps.data.user && this.props.data.user) {
+      hashHistory.push('/home');
+    }
+  }
   onSubmit(variables) {
     return this.props
       .mutate({
         variables,
         refetchQueries: [{ query }]
-      })
-      .then(res => {
-        this.setState({ errors: [] });
-        hashHistory.push('/home');
       })
       .catch(err =>
         this.setState({ errors: err.graphQLErrors.map(error => error.message) })
@@ -36,4 +37,6 @@ class LoginForm extends Component {
   }
 }
 
-export default graphql(mutation)(LoginForm);
+export default graphql(query)(
+  graphql(mutation)(LoginForm)
+);
