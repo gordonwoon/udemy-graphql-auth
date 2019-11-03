@@ -7,6 +7,7 @@ import App from './components/app';
 import LoginForm from './components/login-form';
 import SignupForm from './components/signup-form';
 import Dashboard from './components/dashboard';
+import RequireAuth from './components/require-auth';
 
 const networkInterface = createNetworkInterface({
   uri: '/graphql',
@@ -27,7 +28,7 @@ const Root = () => {
         <Route path="/" component={App}>
           <Route path="/login" component={LoginForm} />
           <Route path="/signup" component={SignupForm} />
-          <Route path="/home" component={Dashboard} />
+          <Route path="/home" component={RequireAuth(Dashboard)} />
         </Route>
       </Router>
     </ApolloProvider>
